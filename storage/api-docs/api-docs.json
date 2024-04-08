@@ -1,0 +1,85 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Swagger with Laravel",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/trading-bot/cross-strategy": {
+            "get": {
+                "tags": [
+                    "Trading Bot"
+                ],
+                "summary": "",
+                "operationId": "caaa81122c4837eb58222ee005f9ae79",
+                "parameters": [
+                    {
+                        "name": "crypto_coin",
+                        "in": "query",
+                        "description": "crypto coin",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "BTC"
+                    },
+                    {
+                        "name": "low_moving_average",
+                        "in": "query",
+                        "description": "low moving average",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "50"
+                    },
+                    {
+                        "name": "high_moving_average",
+                        "in": "query",
+                        "description": "high moving average",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "200"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
