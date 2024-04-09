@@ -26,7 +26,7 @@ class BlogResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'text' => $this->text,
-            'author' => $this->user ? $this->user->name : null,
+            'author' => $this->author ? $this->author->name : null,
             'comments' => $comments ?: null,
         ];
     }

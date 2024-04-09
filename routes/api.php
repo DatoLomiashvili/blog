@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlogsController;
+use App\Http\Controllers\Api\CommentsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,10 +15,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-//
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
@@ -32,4 +29,9 @@ Route::middleware('auth:api')->prefix('blogs')->group(function () {
     Route::post('/update/{id}', [BlogsController::class, 'updateBlog'])->name('blogs.update');
     Route::post('/create', [BlogsController::class, 'createBlog'])->name('blogs.create');
     Route::delete('/delete/{id}', [BlogsController::class, 'deleteBlog'])->name('blogs.delete');
+});
+
+Route::middleware('auth:api')->prefix('comments')->group(function () {
+    Route::post('/create', [CommentsController::class, 'createComment'])->name('comments.create');
+    Route::delete('/delete/{id}', [CommentsController::class, 'deleteComment'])->name('comments.delete');
 });

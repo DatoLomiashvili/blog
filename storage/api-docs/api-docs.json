@@ -454,6 +454,118 @@
                     }
                 ]
             }
+        },
+        "/api/comments/create": {
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "update blog",
+                "operationId": "5b10a7ec50513e0842a3f0aa6bcee257",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "blog_id": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "1"
+                                    },
+                                    "text": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "comment text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/comments/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "delete comment",
+                "operationId": "7cba19d4f72223e181c0c505f63bf2fd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "example": ""
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {

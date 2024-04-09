@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\OrderDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Comment extends Model
 {
@@ -18,6 +19,22 @@ class Comment extends Model
     ];
 
     /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function blog(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'blog_id', 'id');
+    }
+
+    /**
      * @param int $blogId
      * @return mixed
      */
@@ -26,5 +43,15 @@ class Comment extends Model
         return $this->where('blog_id', $blogId)
             ->orderBy('created_at', OrderDirection::desc)
             ->get();
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function getCommentById(int $id): mixed
+    {
+        return $this->where('id', $id)
+            ->first();
     }
 }
