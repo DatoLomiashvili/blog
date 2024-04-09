@@ -12,6 +12,7 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        role: '',
     });
 
     useEffect(() => {
@@ -113,7 +114,7 @@ export default function Register() {
                         required
                     />
 
-                    <InputError message="the role should be either {user, editor, or admin}" className="mt-2" />
+                    <InputError message={errors.role ? 'the role should be either {user, editor, or admin}' : errors.role} className="mt-2" />
 
                 </div>
 

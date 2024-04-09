@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+@dd((new \App\Models\Blog())->getBlogs()))
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">

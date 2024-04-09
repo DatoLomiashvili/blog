@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::get('trading-bot/cross-strategy', [TradingBotController::class, 'crossStrategy']);
+
