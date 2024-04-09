@@ -166,7 +166,9 @@ class BlogsController extends ApiController
         try {
             $blog = $blog->getBlogById(id: $id);
             $blog->update([
-               'title' => $request->validated('title')
+               'title' => $request->validated('title'),
+               'text' => $request->validated('text'),
+               'publish_date' => $request->validated('publish_date')
             ]);
             return $this->success('Blog Updated');
         } catch (Exception $exception) {
