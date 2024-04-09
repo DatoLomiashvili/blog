@@ -13,9 +13,11 @@ class UpdateBlogRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize(Blog $blog): bool
     {
-        return Auth::user()->can('update', Blog::class);
+        $blogId = $this->route()->parameter('id');
+        $blog = $blog->getBlogById($blogId);
+        return Auth::user()->can('update', $blog);
     }
 
     /**
@@ -27,7 +29,7 @@ class UpdateBlogRequest extends FormRequest
         return [
             'title' => 'required|string',
             'text' => 'required|string',
-            'publish_date' => 'required|date_format:Y/m/d H:i:s',
+            'publish_date' => 'required|date_format:Y-m-d H:i:s',
         ];
     }
 

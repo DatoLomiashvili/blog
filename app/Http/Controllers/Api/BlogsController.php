@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Blog;
 use App\Request\BlogListRequest;
 use App\Request\GetBlogRequest;
+use App\Request\UpdateBlogRequest;
 use App\Resources\BlogCollection;
 use App\Resources\BlogResource;
 use App\Supports\ResponseSupport;
@@ -117,4 +118,59 @@ class BlogsController extends ApiController
         }
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/blogs/update/{id}",
+     *      tags={"Blogs"},
+     *      summary="update blog",
+     *      security={{"apiAuth":{}}},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="id",
+     *          example="",
+     *          required=true,
+     *      ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *          description="<b>Sort Directions</b>: asc, desc",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="title", type="string", format="text", example="New Title"),
+     *              @OA\Property(property="text", type="int", format="text", example=""),
+     *              @OA\Property(property="publish_date", type="string", format="text", example="2024-07-20 18:00:00"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response="201",
+     *          description="created",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response="400",
+     *          description="bad request",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response="422",
+     *          description="validation",
+     *          @OA\JsonContent()
+     *      ),
+     *  )
+     * @param int $id
+     * @param UpdateBlogRequest $request
+     * @param Blog $blog
+     * @return BlogResource|JsonResponse
+     */
+    public function updateBlog(int $id, UpdateBlogRequest $request, Blog $blog): BlogResource|JsonResponse
+    {
+        try {
+            $blog = $blog->getBlogById(id: $id);
+            $blog->update([
+               'title' => $request->validated('title')
+            ]);
+            return $this->success('Blog Updated');
+        } catch (Exception $exception) {
+            return $this->error($exception);
+        }
+    }
 }

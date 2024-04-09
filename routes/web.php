@@ -38,5 +38,5 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/blogs/edit/{id}', [BlogsController::class, 'edit'])->name('blogs.edit');
 Route::get('/blogs/{id}', [BlogsController::class, 'view'])->name('blogs.view');
-Route::post('/blogs/update/{id}', [BlogsController::class, 'update'])->name('blogs.update');
+Route::get('/blogs/update/{id}', [BlogsController::class, 'update'])->name('blogs.update');
 require __DIR__.'/auth.php';

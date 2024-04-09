@@ -43,7 +43,6 @@ class Blog extends Model
      */
     public function getBlogById(int $id): mixed
     {
-
         return $this->with(['comments', 'author'])
             ->where('id', $id)
             ->first();

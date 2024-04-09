@@ -52,8 +52,9 @@ class BlogsController extends Controller
      */
 	public function edit($id, Blog $blog): \Illuminate\Foundation\Application|View|Factory|Application
     {
-        $this->data['row'] = $blog->getBlogById($id);
-        $this->authorize('update', $this->data['row']);
+        $blog = $blog->getBlogById($id);
+        $this->data['row'] = $blog;
+        $this->authorize('update', $blog);
         $this->templateName .= __FUNCTION__;
 
 		return view($this->templateName, $this->data);
@@ -69,12 +70,12 @@ class BlogsController extends Controller
      */
 	public function update($id, Request $request, Blog $blog): RedirectResponse
     {
+        $blog = $blog->getBlogById($id);
         $this->authorize('update', $blog);
 
         $this->validate($request, $this->validationArray);
 
-		$blog->getBlogById($id)
-			->update([
+		$blog->update([
 				'title' => $request->title,
 			]);
 		return redirect()->back();

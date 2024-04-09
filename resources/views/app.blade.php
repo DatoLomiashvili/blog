@@ -19,7 +19,7 @@
     <body class="font-sans antialiased">
         @foreach((new \App\Models\Blog())->getList() as $blog)
             <h1>
-                <a href="{{ route('blogs.edit', ['id' => $blog->id]) }}">{{ $blog->title }}</a>
+                <a href="{{ route('blogs.update', ['id' => $blog->id]) }}">{{ $blog->title }}</a>
             </h1>
         @endforeach
         @inertia

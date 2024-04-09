@@ -260,6 +260,83 @@
                     }
                 ]
             }
+        },
+        "/api/blogs/update/{id}": {
+            "post": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "update blog",
+                "operationId": "f409483c3f537dd11d2b072bddf4561b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "example": ""
+                    }
+                ],
+                "requestBody": {
+                    "description": "<b>Sort Directions</b>: asc, desc",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "New Title"
+                                    },
+                                    "text": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": ""
+                                    },
+                                    "publish_date": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "2024-07-20 18:00:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
