@@ -31,4 +31,5 @@ Route::middleware('auth:api')->prefix('blogs')->group(function () {
     Route::get('/{id}', [BlogsController::class, 'getBlog'])->name('blogs.view');
     Route::post('/update/{id}', [BlogsController::class, 'updateBlog'])->name('blogs.update');
     Route::post('/create', [BlogsController::class, 'createBlog'])->name('blogs.create');
+    Route::delete('/delete/{id}', [BlogsController::class, 'deleteBlog'])->name('blogs.delete');
 });

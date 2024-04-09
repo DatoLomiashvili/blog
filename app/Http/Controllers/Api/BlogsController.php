@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Blog;
 use App\Request\BlogListRequest;
 use App\Request\CreateBlogRequest;
+use App\Request\DeleteBlogRequest;
 use App\Request\GetBlogRequest;
 use App\Request\UpdateBlogRequest;
 use App\Resources\BlogCollection;
@@ -222,6 +223,51 @@ class BlogsController extends ApiController
                 'author_id' => Auth::user()['id'],
             ]);
             return $this->success('Blog created');
+        } catch (Exception $exception) {
+            return $this->error($exception);
+        }
+    }
+
+    /**
+     * @OA\Delete(
+     *      path="/api/blogs/delete/{id}",
+     *      tags={"Blogs"},
+     *      summary="delete blog",
+     *      security={{"apiAuth":{}}},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="id",
+     *          example="",
+     *          required=true,
+     *      ),
+     *      @OA\Response(
+     *          response="201",
+     *          description="created",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response="400",
+     *          description="bad request",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response="422",
+     *          description="validation",
+     *          @OA\JsonContent()
+     *      ),
+     *  )
+     * @param int $id
+     * @param DeleteBlogRequest $request
+     * @param Blog $blog
+     * @return BlogResource|JsonResponse
+     */
+    public function deleteBlog(int $id, DeleteBlogRequest $request, Blog $blog): BlogResource|JsonResponse
+    {
+        try {
+            $blog = $blog->getBlogById(id: $id);
+            $blog->delete();
+            return $this->success('Blog deleted');
         } catch (Exception $exception) {
             return $this->error($exception);
         }

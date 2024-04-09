@@ -405,6 +405,55 @@
                     }
                 ]
             }
+        },
+        "/api/blogs/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "delete blog",
+                "operationId": "0d315824404f52e2e5133c15d9b1eec3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "example": ""
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
