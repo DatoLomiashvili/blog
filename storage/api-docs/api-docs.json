@@ -1,58 +1,41 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Swagger with Laravel",
+        "title": "Blog Api",
         "version": "1.0.0"
     },
     "paths": {
-        "/api/trading-bot/cross-strategy": {
-            "get": {
+        "/api/auth/login": {
+            "post": {
                 "tags": [
-                    "Trading Bot"
+                    "Authentification"
                 ],
-                "summary": "",
-                "operationId": "caaa81122c4837eb58222ee005f9ae79",
-                "parameters": [
-                    {
-                        "name": "crypto_coin",
-                        "in": "query",
-                        "description": "crypto coin",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "BTC"
-                    },
-                    {
-                        "name": "low_moving_average",
-                        "in": "query",
-                        "description": "low moving average",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "example": "50"
-                    },
-                    {
-                        "name": "high_moving_average",
-                        "in": "query",
-                        "description": "high moving average",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "200"
-                    }
-                ],
-                "responses": {
-                    "400": {
-                        "description": "bad request",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
+                "summary": "Get a JWT access token via given credentials.",
+                "operationId": "dd51a484b7fa0f97c7680fdbde14cf5f",
+                "requestBody": {
+                    "description": "Login",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "lomiashvili.dato5@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
-                    },
+                    }
+                },
+                "responses": {
                     "200": {
                         "description": "success",
                         "content": {
@@ -61,8 +44,16 @@
                             }
                         }
                     },
-                    "404": {
-                        "description": "not found",
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "validation",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -71,12 +62,213 @@
                     }
                 }
             }
+        },
+        "/api/auth/refresh_token": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Get new JWT access token",
+                "operationId": "b278ea66824db7f7f2acdc93dc184581",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/whoami": {
+            "get": {
+                "tags": [
+                    "Whoami"
+                ],
+                "summary": "Get user details",
+                "description": "This endpoint allows you to retrieve user details.",
+                "operationId": "e8d8be4e3d60ddee8f69ef6900bdeacc",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/blogs": {
+            "post": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "view blogs",
+                "operationId": "81b6b233b9d9bb70ad3f41f14db041dd",
+                "requestBody": {
+                    "description": "<b>Sort Directions</b>: asc, desc",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "page": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "1"
+                                    },
+                                    "pager_limit": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "12"
+                                    },
+                                    "order_direction": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "desc"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/blogs/{id}": {
+            "get": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "get blog",
+                "operationId": "9ac8d006089734792145676fcd6aafbc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "example": ""
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
         "securitySchemes": {
-            "bearerAuth": {
+            "apiAuth": {
                 "type": "http",
+                "description": "Login with email and password to get the authentication token",
+                "name": "Token based Based",
+                "in": "header",
                 "bearerFormat": "JWT",
                 "scheme": "bearer"
             }

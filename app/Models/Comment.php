@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrderDirection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,6 +24,7 @@ class Comment extends Model
     public function getCommentsByBlogId(int $blogId): mixed
     {
         return $this->where('blog_id', $blogId)
+            ->orderBy('created_at', OrderDirection::desc)
             ->get();
     }
 }

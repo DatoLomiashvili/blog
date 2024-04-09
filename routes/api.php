@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\TradingBotController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BlogsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +19,16 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+Route::prefix('auth')->group(function () {
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+    Route::post('/refresh_token', [AuthController::class, 'refreshToken'])->name('auth.refreshToken');
+});
 
+Route::get('/whoami', [AuthController::class, 'whoami'])->name('whoami');
+
+Route::middleware('auth:api')->prefix('blogs')->group(function () {
+    Route::post('/', [BlogsController::class, 'getList']);
+    Route::get('/{id}', [BlogsController::class, 'getBlog']);
+//    Route::post('/{item_id}', [ArticlesController::class, 'getArticle'])
+//        ->where('item_id', '[0-9]+');
+});

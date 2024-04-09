@@ -10,15 +10,24 @@ use Illuminate\Routing\Controller as BaseController;
 
 /**
  * @OA\Info(
- *    title="Swagger with Laravel",
+ *    title="Blog Api",
  *    version="1.0.0",
  * )
- * @OA\SecurityScheme(
- *     type="http",
- *     securityScheme="bearerAuth",
- *     scheme="bearer",
- *     bearerFormat="JWT"
- * )
+ * @OAS\SecurityScheme(
+ *       securityScheme="bearer_token",
+ *       type="http",
+ *       scheme="bearer"
+ *
+ *       @OA\SecurityScheme(
+ *           type="http",
+ *           description="Login with email and password to get the authentication token",
+ *           name="Token based Based",
+ *           in="header",
+ *           scheme="bearer",
+ *           bearerFormat="JWT",
+ *           securityScheme="apiAuth",
+ *       )
+ *   )
  */
 class ApiController extends BaseController
 {

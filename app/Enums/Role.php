@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum Role: string
 {
-    case admin = "admin";
-    case editor = "editor";
-    case user = "user";
+    const admin = "admin";
+    const editor = "editor";
+    const user = "user";
 }

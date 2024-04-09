@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrderDirection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Blog extends Model
 {
     use HasFactory;
-    protected int $pagerLimit = 2;
 
     protected $fillable = [
         'title',
@@ -50,13 +50,18 @@ class Blog extends Model
     }
 
     /**
+     * @param string $orderDirection
+     * @param int|null $pagerLimit
      * @return LengthAwarePaginator
      */
-    public function getBlogs(): LengthAwarePaginator
+    public function getList(
+        string $orderDirection = OrderDirection::desc,
+        ?int $pagerLimit = 2,
+    ): LengthAwarePaginator
     {
         return $this->with('author')
-            ->orderBy('publish_date', 'desc')
-            ->paginate($this->pagerLimit)
+            ->orderBy('publish_date', $orderDirection)
+            ->paginate($pagerLimit)
             ->appends(request()->query());
     }
 }

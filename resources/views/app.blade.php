@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-@dd((new \App\Models\Blog())->getBlogs()))
-
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -19,6 +17,11 @@
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
+        @foreach((new \App\Models\Blog())->getList() as $blog)
+            <h1>
+                <a href="{{ route('blogs.edit', ['id' => $blog->id]) }}">{{ $blog->title }}</a>
+            </h1>
+        @endforeach
         @inertia
     </body>
 </html>
