@@ -30,6 +30,5 @@ Route::middleware('auth:api')->prefix('blogs')->group(function () {
     Route::post('/', [BlogsController::class, 'getList'])->name('blogs.list');
     Route::get('/{id}', [BlogsController::class, 'getBlog'])->name('blogs.view');
     Route::post('/update/{id}', [BlogsController::class, 'updateBlog'])->name('blogs.update');
-//    Route::post('/{item_id}', [ArticlesController::class, 'getArticle'])
-//        ->where('item_id', '[0-9]+');
+    Route::post('/create', [BlogsController::class, 'createBlog'])->name('blogs.create');
 });

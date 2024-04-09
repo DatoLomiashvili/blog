@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Blog;
 use App\Request\BlogListRequest;
+use App\Request\CreateBlogRequest;
 use App\Request\GetBlogRequest;
 use App\Request\UpdateBlogRequest;
 use App\Resources\BlogCollection;
@@ -15,7 +16,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
-use Psr\Container\ContainerExceptionInterface;
+use Illuminate\Support\Facades\Date;
 
 class BlogsController extends ApiController
 {
@@ -168,9 +169,59 @@ class BlogsController extends ApiController
             $blog->update([
                'title' => $request->validated('title'),
                'text' => $request->validated('text'),
-               'publish_date' => $request->validated('publish_date')
+               'publish_date' => $request->validated('publish_date') ?: Date::now(),
             ]);
             return $this->success('Blog Updated');
+        } catch (Exception $exception) {
+            return $this->error($exception);
+        }
+    }
+
+    /**
+     * @OA\Post(
+     *      path="/api/blogs/create",
+     *      tags={"Blogs"},
+     *      summary="update blog",
+     *      security={{"apiAuth":{}}},
+     *     @OA\RequestBody(
+     *          required=true,
+     *          description="<b>Order Directions</b>: asc, desc",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="title", type="string", format="text", example="New Title"),
+     *              @OA\Property(property="text", type="int", format="text", example=""),
+     *              @OA\Property(property="publish_date", type="string", format="text", example="2024-07-20 18:00:00"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response="201",
+     *          description="created",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response="400",
+     *          description="bad request",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response="422",
+     *          description="validation",
+     *          @OA\JsonContent()
+     *      ),
+     *  )
+     * @param CreateBlogRequest $request
+     * @param Blog $blog
+     * @return BlogResource|JsonResponse
+     */
+    public function createBlog(CreateBlogRequest $request, Blog $blog): BlogResource|JsonResponse
+    {
+        try {
+            $blog->create([
+                'title' => $request->validated('title'),
+                'text' => $request->validated('text'),
+                'publish_date' => $request->validated('publish_date') ?: Date::now(),
+                'author_id' => Auth::user()['id'],
+            ]);
+            return $this->success('Blog created');
         } catch (Exception $exception) {
             return $this->error($exception);
         }

@@ -337,6 +337,74 @@
                     }
                 ]
             }
+        },
+        "/api/blogs/create": {
+            "post": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "update blog",
+                "operationId": "7b095f9d569e48fc8342fef3b5695701",
+                "requestBody": {
+                    "description": "<b>Order Directions</b>: asc, desc",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "New Title"
+                                    },
+                                    "text": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": ""
+                                    },
+                                    "publish_date": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "2024-07-20 18:00:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {

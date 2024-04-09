@@ -7,17 +7,15 @@ use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UpdateBlogRequest extends FormRequest
+class CreateBlogRequest extends FormRequest
 {
 
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(Blog $blog): bool
+    public function authorize(): bool
     {
-        $blogId = $this->route()->parameter('id');
-        $blog = $blog->getBlogById($blogId);
-        return Auth::user()->can('update', $blog);
+        return Auth::user()->can('create', Blog::class);
     }
 
     /**

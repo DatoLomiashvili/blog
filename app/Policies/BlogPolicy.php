@@ -26,7 +26,7 @@ class BlogPolicy
     public function create(User $user): bool
     {
         return match ($user->role) {
-            Role::admin, Role::editor => true,
+            Role::editor => true,
             default => false,
         };
     }
