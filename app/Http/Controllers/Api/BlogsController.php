@@ -7,6 +7,7 @@ use App\Request\BlogListRequest;
 use App\Request\CreateBlogRequest;
 use App\Request\DeleteBlogRequest;
 use App\Request\GetBlogRequest;
+use App\Request\IncreaseViewsRequest;
 use App\Request\UpdateBlogRequest;
 use App\Resources\BlogCollection;
 use App\Resources\BlogResource;
@@ -30,7 +31,6 @@ class BlogsController extends ApiController
      *     path="/api/blogs",
      *     tags={"Blogs"},
      *     summary="view blogs",
-     *     security={{"apiAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         description="<b>Sort Directions</b>: asc, desc",
@@ -268,6 +268,52 @@ class BlogsController extends ApiController
             $blog = $blog->getBlogById(id: $id);
             $blog->delete();
             return $this->success('Blog deleted');
+        } catch (Exception $exception) {
+            return $this->error($exception);
+        }
+    }
+
+    /**
+     * @OA\Post(
+     *      path="/api/blogs/view/{id}",
+     *      tags={"Blogs"},
+     *      summary="blog increase view counter",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="id",
+     *          example="",
+     *          required=true,
+     *      ),
+     *      @OA\Response(
+     *          response="201",
+     *          description="created",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response="400",
+     *          description="bad request",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response="422",
+     *          description="validation",
+     *          @OA\JsonContent()
+     *      ),
+     *  )
+     * @param int $id
+     * @param IncreaseViewsRequest $request
+     * @param Blog $blog
+     * @return BlogResource|JsonResponse
+     */
+    public function increaseViews(int $id, IncreaseViewsRequest $request, Blog $blog): BlogResource|JsonResponse
+    {
+        try {
+            $blog = $blog->getBlogById(id: $id);
+            $blog->update([
+                'views' => $blog->views + 1
+            ]);
+            return $this->success('blog views increased');
         } catch (Exception $exception) {
             return $this->error($exception);
         }

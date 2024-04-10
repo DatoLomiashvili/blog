@@ -17,6 +17,20 @@ class RegistrationTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_registration_with_wrong_role_input_returns_error(): void
+    {
+        $response = $this->post('/register', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'role' => 'incorrect',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors('role');
+    }
+
     public function test_new_users_can_register(): void
     {
         $response = $this->post('/register', [
@@ -24,6 +38,7 @@ class RegistrationTest extends TestCase
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
+            'role' => 'admin',
         ]);
 
         $this->assertAuthenticated();

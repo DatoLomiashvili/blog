@@ -7,7 +7,7 @@ use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class GetBlogRequest extends FormRequest
+class IncreaseViewsRequest extends FormRequest
 {
 
     /**

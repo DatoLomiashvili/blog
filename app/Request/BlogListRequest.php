@@ -16,7 +16,7 @@ class BlogListRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::user()->can('view', Blog::class);
+        return true;
     }
 
     /**

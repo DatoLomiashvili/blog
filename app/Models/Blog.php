@@ -34,7 +34,8 @@ class Blog extends Model
      */
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class, 'blog_id', 'id');
+        return $this->hasMany(Comment::class, 'blog_id', 'id')
+            ->orderBy('created_at', OrderDirection::desc);
     }
 
     /**

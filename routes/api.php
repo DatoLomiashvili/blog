@@ -23,13 +23,17 @@ Route::prefix('auth')->group(function () {
 
 Route::get('/whoami', [AuthController::class, 'whoami'])->name('whoami');
 
-Route::middleware('auth:api')->prefix('blogs')->group(function () {
+Route::prefix('blogs')->group(function () {
     Route::post('/', [BlogsController::class, 'getList'])->name('blogs.list');
-    Route::get('/{id}', [BlogsController::class, 'getBlog'])->name('blogs.view');
-    Route::post('/update/{id}', [BlogsController::class, 'updateBlog'])->name('blogs.update');
-    Route::post('/create', [BlogsController::class, 'createBlog'])->name('blogs.create');
-    Route::delete('/delete/{id}', [BlogsController::class, 'deleteBlog'])->name('blogs.delete');
+    Route::post('/view/{id}', [BlogsController::class, 'increaseViews'])->name('blogs.increaseViews');
+    Route::middleware('auth:api')->group(function () {
+        Route::get('/{id}', [BlogsController::class, 'getBlog'])->name('blogs.view');
+        Route::post('/update/{id}', [BlogsController::class, 'updateBlog'])->name('blogs.update');
+        Route::post('/create', [BlogsController::class, 'createBlog'])->name('blogs.create');
+        Route::delete('/delete/{id}', [BlogsController::class, 'deleteBlog'])->name('blogs.delete');
+    });
 });
+
 
 Route::middleware('auth:api')->prefix('comments')->group(function () {
     Route::post('/create', [CommentsController::class, 'createComment'])->name('comments.create');

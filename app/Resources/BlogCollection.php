@@ -18,7 +18,10 @@ class BlogCollection extends JsonResource
             'title' => $this->title,
             'text' => $this->text,
             'views' => $this->views,
-            'author' => $this->author->name,
+            'author' => [
+                'id' => $this->author->id,
+                'name' => $this->author->name,
+            ],
             'publish_date' => $this->publish_date,
             'created_at' => $this->created_at,
         ];

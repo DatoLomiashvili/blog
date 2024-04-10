@@ -19,4 +19,9 @@
     <body class="font-sans antialiased">
         @inertia
     </body>
+    <style>
+        body {
+            background-color: rgb(17 24 39);
+        }
+    </style>
 </html>

@@ -204,12 +204,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "apiAuth": []
-                    }
-                ]
+                }
             }
         },
         "/api/blogs/{id}": {
@@ -453,6 +448,50 @@
                         "apiAuth": []
                     }
                 ]
+            }
+        },
+        "/api/blogs/view/{id}": {
+            "post": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "blog increase view counter",
+                "operationId": "10355dc0c97eabdb3133f82ae2a137a3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "example": ""
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/comments/create": {
